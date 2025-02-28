@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e71e3479-cdef-46e7-9d88-bce5461289e0" name="prometheus">
+        <fileTransfer accessType="SFTP" host="192.168.0.16" port="22" sshConfigId="1ac72980-700b-4a22-856f-358f64a9c81e" sshConfig="root@192.168.0.16:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

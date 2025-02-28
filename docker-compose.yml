@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring_net
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+#  mysqld-exporter:
+#    image: bitnami/mysqld-exporter:latest
+#    container_name: mysqld-exporter
+#    environment:
+#      - DATA_SOURCE_NAME=root:mysql@tcp(192.168.0.17:43306)/szyg_portal
+#      - MYSQL_QUERY=SELECT process_name, version, field1_name, field1_value, field2_name, field2_value FROM prometheus;
+#    volumes:
+#      - ./mysqld_exporter/myqueries.yml:/etc/mysqld_exporter/myqueries.yml
+#      - ./mysqld_exporter/.my.cnf:/etc/mysqld_exporter/.my.cnf
+#    ports:
+#      - "9104:9104"
+#    networks:
+#      - monitoring_net
+#    command:
+#      - '--config.my-cnf=/etc/mysqld_exporter/.my.cnf'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3030:3000"
+    networks:
+      - monitoring_net
+
+  custom-exporter:
+    image: custom-exporter:1.0
+    container_name: custom-exporter
+    volumes:
+      - ./custom-exporter:/app
+    working_dir: /app
+    command: python exporter.py
+    ports:
+      - "38000:8000"
+    networks:
+      - monitoring_net
+
+networks:
+  monitoring_net:
+    driver: bridge
+
+
