@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 prometheus_url = "http://192.168.0.16:9090/api/v1/query"
@@ -13,6 +15,6 @@ if response.status_code == 200:
     # 解析 JSON 数据
     data = response.json()
     # 打印返回的数据
-    print("Query Result:", data)
+    print("Query Result:", json.dumps(data, indent=4))
 else:
     print("Failed to retrieve data. HTTP Status Code:", response.status_code)

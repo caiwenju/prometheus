@@ -18,30 +18,6 @@ Prometheus：访问 http://localhost:9090，在 Prometheus 的 Web UI 中查询�
 Grafana：访问 http://localhost:3000，使用默认用户名 admin 和密码 admin 登录，配置 Prometheus 数据源并创建仪表板。
 
 
-三、示例数据
-插入测试数据
-连接到 MySQL 并插入一些测试数据：
-
-sql
-Copy
-USE mydatabase;
-
-CREATE TABLE orders (
-  id INT PRIMARY KEY,
-  amount DECIMAL(10, 2),
-  status VARCHAR(20)
-);
-
-CREATE TABLE users (
-  id INT PRIMARY KEY,
-  name VARCHAR(50),
-  age INT
-);
-
-INSERT INTO orders (id, amount, status) VALUES
-(1, 100.50, 'completed'),
-(2, 200.00, 'pending');
-
-INSERT INTO users (id, name, age) VALUES
-(101, 'Alice', 25),
-(102, 'Bob', 30);
+三、自定义export 的脚本exporter.py的使用说明
+prometheus 会定期从 exporter.py 脚本中抓取指标，并将其存储，所以 exporter.py 脚本中的指标在每一次采集时返回的值决定了 prometheus 
+中的指标值，可以从 exporter.py 控制时间戳的返回逻辑，从而控制 prometheus 中api聚合等逻辑的结果。
